@@ -20,5 +20,6 @@ namespace RentalKendaraan_20180140086.Models
 
         [Required(ErrorMessage = "Ketersediaan wajib diisi")]
         public string Ketersediaan { get; set; }
+        public object IdJenisKendaraanNavigation { get; internal set; }
     }
 }

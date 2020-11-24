@@ -23,6 +23,7 @@ namespace RentalKendaraan_20180140086.Models
         public virtual DbSet<Kondisi> Kondisi { get; set; }
         public virtual DbSet<Pengembalian> Pengembalian { get; set; }
         public virtual DbSet<Pinjaman> Pinjaman { get; set; }
+        public object Peminjaman { get; internal set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

@@ -16,5 +16,7 @@ namespace RentalKendaraan_20180140086.Models
 
         [Required(ErrorMessage = "Biaya wajib diisi")]
         public int? Biaya { get; set; }
+        public object IdJaminanNavigation { get; internal set; }
+        public object IdCustomerNavigation { get; internal set; }
     }
 }

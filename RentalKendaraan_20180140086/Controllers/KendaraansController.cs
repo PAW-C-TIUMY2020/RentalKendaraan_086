@@ -19,9 +19,29 @@ namespace RentalKendaraan_20180140086.Controllers
         }
 
         // GET: Kendaraans
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string ktsd, string searchstring)
         {
-            return View(await _context.Kendaraan.ToListAsync());
+            var ktsdList = new List<string>();
+
+            var ktsdQuery = from d in _context.Kendaraan orderby d.Ketersediaan select d.Ketersediaan;
+
+            ktsdList.AddRange(ktsdQuery.Distinct());
+
+            ViewBag.ktsd = new SelectList(ktsdList);
+
+            var menu = from m in _context.Kendaraan.Include(k => k.IdJenisKendaraanNavigation) select m;
+
+            if (!string.IsNullOrEmpty(ktsd))
+            {
+                menu = menu.Where(x => x.Ketersediaan == ktsd);
+            }
+
+            if (!string.IsNullOrEmpty(searchstring))
+            {
+                menu = menu.Where(s => s.NoPolisi.Contains(searchstring) || s.NamaKendaraan.Contains(searchstring)
+                || s.NoStnk.Contains(searchstring));
+            }
+            return View(await menu.ToListAsync());
         }
 
         // GET: Kendaraans/Details/5
